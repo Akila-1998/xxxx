@@ -11,7 +11,10 @@ import {ApiService} from "../services/api/api.service";
 })
 export class MainScreenComponent implements OnInit {
   data: any
+  diabeticData: any
   isBMICalculated: boolean = false
+  isDiabeticPatient: boolean = false
+  isSubmit: boolean = false
   private serviceLogin: Subscription | any;
   patientForm = new FormGroup({
     pId : new FormControl('', [Validators.required]),
@@ -77,6 +80,14 @@ export class MainScreenComponent implements OnInit {
     return this.bmiForm.get('weight');
   }
 
+  reset() {
+    this.patientForm.reset()
+    this.bmiForm.reset()
+    this.data = ''
+    this.diabeticData = ''
+    this.isSubmit = false
+  }
+
   onSubmit() {
     let formData = {
       patient_id: this.patientForm.value.pId?.trim(),
@@ -84,17 +95,20 @@ export class MainScreenComponent implements OnInit {
       bloodpressure: this.patientForm.value.bloodPressure?.trim(),
       glucose: this.patientForm.value.glucose?.trim(),
       pregnancies: this.patientForm.value.pregnancies?.trim(),
-      skinThickness: this.patientForm.value.skinThickness?.trim(),
+      skinthickness: this.patientForm.value.skinThickness?.trim(),
       insulin: this.patientForm.value.insulinLevel?.trim(),
       diabetespedigreefunction: this.patientForm.value.diabetic?.trim(),
       age: this.patientForm.value.age?.trim(),
       bmi: this.data
     }
 
+    this.isSubmit = true
     this.serviceLogin = this.apiService.submit(formData).subscribe(
-      responce => {
-
-        const res = responce;
+      response => {
+        this.diabeticData = response
+        if (response.message == "Diabetic") {
+          this.isDiabeticPatient = true
+        }
 
 
 
@@ -116,9 +130,8 @@ export class MainScreenComponent implements OnInit {
     }
     this.serviceLogin = this.apiService.calculate(formData).subscribe(
       responce => {
-
-        if (responce.data != null ) {
-          this.data = responce.data
+        if (responce.bmi != null ) {
+          this.data = responce.bmi.toFixed(2)
           this.isBMICalculated = true
         }
 

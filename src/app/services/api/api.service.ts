@@ -15,8 +15,9 @@ export class ApiService {
   submit(data: any): Observable<any> {
 
     const body = data;
-    const path = AppConfig.API_PATH+"predict";
+    const path = AppConfig.API_PATH+"diabetes-predict";
     const header = ApiService.setHttpHeader({
+      'Access-Control-Allow-Origin': '*',
       'Content-Type': 'application/json',
     });
 
@@ -26,8 +27,9 @@ export class ApiService {
   calculate(data: any): Observable<any> {
 
     const body = data;
-    const path = AppConfig.API_PATH+"calculate";
+    const path = AppConfig.API_PATH+"bmi";
     const header = ApiService.setHttpHeader({
+
       'Content-Type': 'application/json',
     });
 

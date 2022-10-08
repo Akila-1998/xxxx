@@ -72,6 +72,19 @@
             </div>
           </div>
         </form>
+        <button class="btn btn-primary lg-btn" (click)="reset()" >
+          &nbsp;Reset
+        </button>
+
+        <div class="col-12">
+          <div *ngIf="isSubmit">
+            <Label>diabetic Status:</Label>
+            <div >{{isDiabeticPatient? "Patient Id " + diabeticData.Patient_ID + " have diabetics" : "does not have diabetics"}}</div>
+          </div>
+
+        </div>
+
+
       </div>
     </div>
   </div>

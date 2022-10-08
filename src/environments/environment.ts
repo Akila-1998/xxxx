@@ -5,7 +5,8 @@
 export const environment = {
   production: false,
   enviromentName: 'SERVER: Localhost Server Environment',
-  apiPath: 'http://localhost:8081/'
+  // apiPath: 'http://localhost:8081/'
+  apiPath: 'http://20.150.146.57:8081/v1/'
 };
 
 /*
