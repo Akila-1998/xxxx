@@ -1,11 +1,12 @@
 .Image{
-  background-image: url('https://wallpaperaccess.com/full/624111.jpg');
+  object-fit: cover;
   height: 300px;
+  width: 100%;
 }
 
 .Avatar{
-  width: 300px;
-  height: 160px;
+  width: 400px;
+  height: 210px;
   z-index: 999;
   margin-top: -100px;
   float: right;
@@ -16,7 +17,7 @@
 }
 
 .Template{
-  margin-top: -100px;
+  margin-top: -150px;
   background: hsla(0, 0%, 100%, 0.8);
-  backdrop-filter: blur(30px);
+  backdrop-filter: blur(-100px);
 }

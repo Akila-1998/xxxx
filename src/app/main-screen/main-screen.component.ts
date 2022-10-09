@@ -15,7 +15,6 @@ export class MainScreenComponent implements OnInit {
 
   data: any
   diabeticData: any
-  isBMICalculated: boolean = false
   isDiabeticPatient: boolean = false
   isSubmit: boolean = false
 
@@ -88,7 +87,6 @@ export class MainScreenComponent implements OnInit {
   }
 
   calculate() {
-    console.log("calculate working"); //todo:remove
     let formData = {
       height: this.bmiForm.value.height?.trim(),
       weight: this.bmiForm.value.weight?.trim(),
@@ -97,20 +95,18 @@ export class MainScreenComponent implements OnInit {
       responce => {
         if (responce.bmi != null ) {
           this.data = responce.bmi.toFixed(2)
-          this.isBMICalculated = true
         }
 
 
       },
       error => {
-
+        alert("Something went wrong");
       }
     );
 
   }
 
   onSubmit() {
-    console.log("onsubmit working"); //todo:remove
     let formData = {
       patient_id: this.patientForm.value.pId?.trim(),
       patient_name: this.patientForm.value.pName?.trim(),
@@ -136,7 +132,7 @@ export class MainScreenComponent implements OnInit {
 
       },
       error => {
-
+        alert("Something went wrong");
       }
 
     );
