@@ -1,7 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import { Router } from '@angular/router';
-import { Subscription } from 'rxjs';
 import {ApiService} from "../services/api/api.service";
 
 @Component({
@@ -9,9 +7,7 @@ import {ApiService} from "../services/api/api.service";
   templateUrl: './main-screen.component.html',
   styleUrls: ['./main-screen.component.css']
 })
-export class MainScreenComponent implements OnInit {
-
-  private adapter: Subscription | any;
+export class MainScreenComponent{
 
   data: any
   diabeticData: any
@@ -35,12 +31,7 @@ export class MainScreenComponent implements OnInit {
     weight : new FormControl('', [Validators.required]),
   })
 
-  constructor(
-    private apiService: ApiService,
-    private router: Router,
-  ) { }
-
-  ngOnInit(): void {}
+  constructor(private apiService: ApiService) {}
 
   get patientId(){
     return this.patientForm.get('pId');
@@ -91,18 +82,22 @@ export class MainScreenComponent implements OnInit {
       height: this.bmiForm.value.height?.trim(),
       weight: this.bmiForm.value.weight?.trim(),
     }
-    this.adapter = this.apiService.calculate(formData).subscribe(
-      responce => {
-        if (responce.bmi != null ) {
-          this.data = responce.bmi.toFixed(2)
+    if(!isNaN(Number(formData.height)) && !isNaN(Number(formData.weight))){
+      this.apiService.calculate(formData).subscribe(
+        responce => {
+          if (responce.bmi != null ) {
+            this.data = responce.bmi.toFixed(2)
+          }
+        },
+        error => {
+          alert("Something went wrong");
         }
-
-
-      },
-      error => {
-        alert("Something went wrong");
-      }
-    );
+      );
+    }else if(isNaN(Number(formData.height))){
+      alert("Height is invalid!. Please try again")
+    }else if(isNaN(Number(formData.weight))){
+      alert("Weight is invalid!. Please try again")
+    }
 
   }
 
@@ -120,25 +115,49 @@ export class MainScreenComponent implements OnInit {
       bmi: this.data
     }
 
-    this.isSubmit = true
-    this.adapter = this.apiService.submit(formData).subscribe(
-      response => {
-        this.diabeticData = response
-        if (response.message == "Diabetic") {
-          this.isDiabeticPatient = true
+    if (this.isValidFormData(formData)){
+      this.apiService.submit(formData).subscribe(
+        response => {
+          this.isSubmit = true
+          this.diabeticData = response
+          if (response.message == "Diabetic") {
+            this.isDiabeticPatient = true
+          }
+        },
+        error => {
+          alert("Something went wrong");
         }
+      );
+    }
+  }
 
-
-
-      },
-      error => {
-        alert("Something went wrong");
-      }
-
-    );
-
-
-
+  isValidFormData(formData: {patient_id: string | undefined, patient_name: string | undefined, bloodpressure: string | undefined, glucose: string | undefined, pregnancies: string | undefined, skinthickness: string | undefined, insulin: string | undefined, diabetespedigreefunction: string | undefined, age: string | undefined, bmi: any}) : boolean{
+    if (formData.patient_id != "" && !isNaN(Number(formData.bloodpressure)) && !isNaN(Number(formData.glucose)) && !isNaN(Number(formData.pregnancies)) && !isNaN(Number(formData.skinthickness)) && !isNaN(Number(formData.insulin)) && !isNaN(Number(formData.diabetespedigreefunction)) && !isNaN(Number(formData.age)) && !isNaN(Number(formData.bmi))){
+      return true;
+    }else if (isNaN(Number(formData.bloodpressure))){
+      alert("Blood Pressure is invalid!. Please try again")
+      return false;
+    }else if (isNaN(Number(formData.glucose))){
+      alert("Glucose count is invalid!. Please try again")
+      return false;
+    }else if (isNaN(Number(formData.pregnancies))){
+      alert("Pregnancies count is invalid!. Please try again")
+      return false;
+    }else if (isNaN(Number(formData.skinthickness))){
+      alert("Skin Thickness is invalid!. Please try again")
+      return false;
+    }else if (isNaN(Number(formData.insulin))){
+      alert("Insulin count is invalid!. Please try again")
+      return false;
+    }else if (isNaN(Number(formData.diabetespedigreefunction))){
+      alert("Diabetes Pedigree Function is invalid!. Please try again")
+      return false;
+    }else if (isNaN(Number(formData.age))){
+      alert("Age is invalid!. Please try again")
+      return false;
+    }else{
+      return false;
+    }
   }
 
   reset() {
