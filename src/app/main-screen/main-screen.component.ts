@@ -10,12 +10,15 @@ import {ApiService} from "../services/api/api.service";
   styleUrls: ['./main-screen.component.css']
 })
 export class MainScreenComponent implements OnInit {
+
+  private adapter: Subscription | any;
+
   data: any
   diabeticData: any
   isBMICalculated: boolean = false
   isDiabeticPatient: boolean = false
   isSubmit: boolean = false
-  private serviceLogin: Subscription | any;
+
   patientForm = new FormGroup({
     pId : new FormControl('', [Validators.required]),
     pName : new FormControl('', [Validators.required]),
@@ -32,14 +35,13 @@ export class MainScreenComponent implements OnInit {
     height : new FormControl('', [Validators.required]),
     weight : new FormControl('', [Validators.required]),
   })
+
   constructor(
     private apiService: ApiService,
     private router: Router,
   ) { }
 
-  ngOnInit(): void {
-
-  }
+  ngOnInit(): void {}
 
   get patientId(){
     return this.patientForm.get('pId');
@@ -56,12 +58,15 @@ export class MainScreenComponent implements OnInit {
   get glucose(){
     return this.patientForm.get('glucose');
   }
+
   get pregnancies(){
     return this.patientForm.get('pregnancies');
   }
+
   get skinThickness(){
     return this.patientForm.get('skinThickness');
   }
+
   get insulinLevel(){
     return this.patientForm.get('insulinLevel');
   }
@@ -69,6 +74,7 @@ export class MainScreenComponent implements OnInit {
   get diabetic(){
     return this.patientForm.get('diabetic');
   }
+
   get age(){
     return this.patientForm.get('age');
   }
@@ -76,19 +82,35 @@ export class MainScreenComponent implements OnInit {
   get height(){
     return this.bmiForm.get('height');
   }
+
   get weight(){
     return this.bmiForm.get('weight');
   }
 
-  reset() {
-    this.patientForm.reset()
-    this.bmiForm.reset()
-    this.data = ''
-    this.diabeticData = ''
-    this.isSubmit = false
+  calculate() {
+    console.log("calculate working"); //todo:remove
+    let formData = {
+      height: this.bmiForm.value.height?.trim(),
+      weight: this.bmiForm.value.weight?.trim(),
+    }
+    this.adapter = this.apiService.calculate(formData).subscribe(
+      responce => {
+        if (responce.bmi != null ) {
+          this.data = responce.bmi.toFixed(2)
+          this.isBMICalculated = true
+        }
+
+
+      },
+      error => {
+
+      }
+    );
+
   }
 
   onSubmit() {
+    console.log("onsubmit working"); //todo:remove
     let formData = {
       patient_id: this.patientForm.value.pId?.trim(),
       patient_name: this.patientForm.value.pName?.trim(),
@@ -103,7 +125,7 @@ export class MainScreenComponent implements OnInit {
     }
 
     this.isSubmit = true
-    this.serviceLogin = this.apiService.submit(formData).subscribe(
+    this.adapter = this.apiService.submit(formData).subscribe(
       response => {
         this.diabeticData = response
         if (response.message == "Diabetic") {
@@ -123,24 +145,11 @@ export class MainScreenComponent implements OnInit {
 
   }
 
-  calculate() {
-    let formData = {
-      height: this.bmiForm.value.height?.trim(),
-      weight: this.bmiForm.value.weight?.trim(),
-    }
-    this.serviceLogin = this.apiService.calculate(formData).subscribe(
-      responce => {
-        if (responce.bmi != null ) {
-          this.data = responce.bmi.toFixed(2)
-          this.isBMICalculated = true
-        }
-
-
-      },
-      error => {
-
-      }
-    );
-
+  reset() {
+    this.patientForm.reset()
+    this.bmiForm.reset()
+    this.data = ''
+    this.diabeticData = ''
+    this.isSubmit = false
   }
 }
