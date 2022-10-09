@@ -1,91 +1,149 @@
-<div class="container">
-  <div class="row">
-    <div class="lg-container d-flex justify-content-center lg-bx">
-      <div class="login-form mt-4 p-0">
-        <form [formGroup]="patientForm"  autocomplete="off" id="login-form" name="login" #f="ngForm" (ngSubmit)="onSubmit()" class="row g-3 ">
-          <p class="lg-title mt-2 mb-3">BMI Portal</p>
-          <div class="col-12">
-            <input type="text" id="mgr-pId" name="pId" class="form-control lg-input" placeholder="Patient Id" formControlName="pId">
-            <span class="error" *ngIf="patientId && patientId.invalid && patientId.touched">Patient Id field is required</span>
-          </div>
-          <div class="col-12">
-            <input type="text" id="mgr-name" name="pName" class="form-control lg-input" placeholder="Patient Name" formControlName="pName">
-            <span class="error" *ngIf="patientName && patientName.invalid && patientName.touched">Patient Name field is required</span>
-          </div>
-          <div class="col-12">
-            <input type="text" id="mgr-bloodPressure" name="bloodPressure" class="form-control lg-input" placeholder="Blood Pressure" formControlName="bloodPressure">
-            <span class="error" *ngIf="bloodPressure && bloodPressure.invalid && bloodPressure.touched">Blood Pressure field is required</span>
-          </div>
-          <div class="col-12">
-            <input type="text" id="mgr-glucose" name="glucose" class="form-control lg-input" placeholder="Glucose Level" formControlName="glucose">
-            <span class="error" *ngIf="glucose && glucose.invalid && glucose.touched">Glucose Level field is required</span>
-          </div>
-          <div class="col-12">
-            <input type="text" id="mgr-pregnancies" name="pregnancies" class="form-control lg-input" placeholder="Pregnancies" formControlName="pregnancies">
-            <span class="error" *ngIf="pregnancies && pregnancies.invalid && pregnancies.touched">Pregnancies field is required</span>
-          </div>
-          <div class="col-12">
-            <input type="text" id="mgr-skin-thickness" name="skinThickness" class="form-control lg-input" placeholder="Skin Thickness" formControlName="skinThickness">
-            <span class="error" *ngIf="skinThickness && skinThickness.invalid && skinThickness.touched">Skin Thickness field is required</span>
-          </div>
-          <div class="col-12">
-            <input type="text" id="mgr-insulin-level" name="insulinLevel" class="form-control lg-input" placeholder="insulin Level" formControlName="insulinLevel">
-            <span class="error" *ngIf="insulinLevel && insulinLevel.invalid && insulinLevel.touched">Insulin Level field is required</span>
-          </div>
-          <div class="col-12">
-            <Label>BMI</Label>
-            <div >{{data?data : "You have to insert height weight to calucalte bmi"}}</div>
-          </div>
-          <form [formGroup]="bmiForm"  autocomplete="off" id="bmi-form" name="calculateForm" #c="ngForm" (ngSubmit)="calculate()" class="row g-3 ">
-            <div class="col-12">
-              <input type="text" id="mgr-height" name="height" class="form-control lg-input" placeholder="height" formControlName="height">
-              <span class="error" *ngIf="height && height.invalid && height.touched">height field is required</span>
-            </div>
-            <div class="col-12">
-              <input type="text" id="mgr-weight" name="weight" class="form-control lg-input" placeholder="weight" formControlName="weight">
-              <span class="error" *ngIf="weight && weight.invalid && weight.touched">weight field is required</span>
-            </div>
+<section class="text-center">
 
-            <div class="col-12">
-              <div class="d-grid gap-2 mt-3">
-                <button class="btn btn-primary lg-btn" [disabled]="!c.valid" type="submit">
-                  &nbsp;Submit
-                </button>
+  <!-- Background image -->
+  <img class="Image" src="assets/medical-icons.jpg">
+  <!-- Background image -->
+
+  <div class="card mx-4 mx-md-5 shadow Template">
+    <img class="Avatar" src="assets/glucometer.png">
+
+    <div class="card-body py-5 px-md-5">
+      <div class="row d-flex justify-content-center">
+        <div class="col-lg-8">
+
+          <h2 class="fw-bold mb-5">Gluco Meter</h2>
+
+          <form [formGroup]="patientForm"  autocomplete="off" #f="ngForm" (ngSubmit)="onSubmit()" class="g-3">
+
+            <div class="row">
+              <div class="col-md-6 mb-0">
+                <div class="form-group">
+                  <input type="text" id="mgr-pId" name="pId" class="form-control lg-input" placeholder="Patient Id" formControlName="pId">
+                  <span class="error" *ngIf="patientId && patientId.invalid && patientId.touched">Patient Id field is required</span>
+                </div>
+              </div>
+              <div class="col-md-6 mb-0">
+                <div class="form-group">
+                  <input type="text" id="mgr-name" name="pName" class="form-control lg-input" placeholder="Patient Name" formControlName="pName">
+                  <span class="error" *ngIf="patientName && patientName.invalid && patientName.touched">Patient Name field is required</span>
+                </div>
               </div>
             </div>
+
+            <div class="row">
+              <div class="col-md-6 mb-0">
+                <div class="form-group">
+                  <input type="text" id="mgr-bloodPressure" name="bloodPressure" class="form-control lg-input" placeholder="Blood Pressure" formControlName="bloodPressure">
+                  <span class="error" *ngIf="bloodPressure && bloodPressure.invalid && bloodPressure.touched">Blood Pressure field is required</span>
+                </div>
+              </div>
+              <div class="col-md-6 mb-1">
+                <div class="form-group">
+                  <input type="text" id="mgr-glucose" name="glucose" class="form-control lg-input" placeholder="Glucose Level" formControlName="glucose">
+                  <span class="error" *ngIf="glucose && glucose.invalid && glucose.touched">Glucose Level field is required</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-6 mb-0">
+                <div class="form-group">
+                  <input type="text" id="mgr-pregnancies" name="pregnancies" class="form-control lg-input" placeholder="Pregnancies" formControlName="pregnancies">
+                  <span class="error" *ngIf="pregnancies && pregnancies.invalid && pregnancies.touched">Pregnancies field is required</span>
+                </div>
+              </div>
+              <div class="col-md-6 mb-0">
+                <div class="form-group">
+                  <input type="text" id="mgr-skin-thickness" name="skinThickness" class="form-control lg-input" placeholder="Skin Thickness" formControlName="skinThickness">
+                  <span class="error" *ngIf="skinThickness && skinThickness.invalid && skinThickness.touched">Skin Thickness field is required</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-6 mb-0">
+                <div class="form-group">
+                  <input type="text" id="mgr-insulin-level" name="insulinLevel" class="form-control lg-input" placeholder="insulin Level" formControlName="insulinLevel">
+                  <span class="error" *ngIf="insulinLevel && insulinLevel.invalid && insulinLevel.touched">Insulin Level field is required</span>
+                </div>
+              </div>
+              <div class="col-md-6 mb-0">
+                <div class="form-group">
+                  <input type="text" id="mgr-diabetic" name="diabetic" class="form-control lg-input" placeholder="Diabetes Pedigree Function" formControlName="diabetic">
+                  <span class="error" *ngIf="diabetic && diabetic.invalid && diabetic.touched">Diabetes Pedigree Function field is required</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-6 mb-4">
+                <div class="form-group">
+                  <input type="text" id="mgr-age" name="age" class="form-control lg-input" placeholder="Age" formControlName="age">
+                  <span class="error" *ngIf="age && age.invalid && age.touched">Age field is required</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="container border mb-4">
+              <form [formGroup]="bmiForm"  autocomplete="off" id="bmi-form" name="calculateForm" #c="ngForm" (ngSubmit)="calculate()" class="row g-3">
+                <div class="row">
+                  <label class="d-flex">BMT Indicator</label>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <input type="text" id="mgr-height" name="height" class="form-control lg-input" placeholder="height" formControlName="height">
+                      <span class="error" *ngIf="height && height.invalid && height.touched">height field is required</span>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <input type="text" id="mgr-weight" name="weight" class="form-control lg-input" placeholder="weight" formControlName="weight">
+                      <span class="error" *ngIf="weight && weight.invalid && weight.touched">weight field is required</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-2">
+                    <div class="form-group">
+                      <button class="btn btn-primary btn-group-sm d-flex w-100 justify-content-center" [disabled]="!c.valid" type="submit">&nbsp;Submit</button>
+                    </div>
+                  </div>
+                  <div class="col-md-2">
+                    <div class="form-group align-items-center">
+                      <label class="pt-2">BMI Value : </label>
+                    </div>
+                  </div>
+                  <div class="col-md-8">
+                    <div class="form-group">
+                      <input type="text" id="bmi-value" class="form-control lg-input" [value]="data!=undefined ? data: ''" disabled>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+
+            <div class="row">
+              <div class="float-btn mb-4">
+                <button class="btn btn-primary btn-sm w-25 mx-1 " [disabled]="!f.form.valid||data==undefined||data==''" type="submit">&nbsp;Submit</button>
+                <button class="btn btn-primary btn-sm w-25" (click)="reset()" >&nbsp;Reset</button>
+              </div>
+            </div>
+
           </form>
 
-          <div class="col-12">
-            <input type="text" id="mgr-diabetic" name="diabetic" class="form-control lg-input" placeholder="Diabetes Pedigree Function" formControlName="diabetic">
-            <span class="error" *ngIf="diabetic && diabetic.invalid && diabetic.touched">Diabetes Pedigree Function field is required</span>
-          </div>
-          <div class="col-12">
-            <input type="text" id="mgr-age" name="age" class="form-control lg-input" placeholder="Age" formControlName="age">
-            <span class="error" *ngIf="age && age.invalid && age.touched">Age field is required</span>
-          </div>
-
-          <div class="col-12">
-            <div class="d-grid gap-2 mt-3">
-              <button class="btn btn-primary lg-btn" [disabled]="!f.valid || !isBMICalculated" type="submit">
-                &nbsp;Submit
-              </button>
+          <div *ngIf="isSubmit" class="row justify-content-center">
+            <div class="col-md-3">
+              <Label>diabetic Status:</Label>
+            </div>
+            <div class="col-md-auto">
+              <span *ngIf="isDiabeticPatient" style="color: red; font-weight: bold; font-size: large">has Diabetics</span><span *ngIf="!isDiabeticPatient"style="color: green; font-weight: bold; font-size: large">does not have Diabetics</span>
             </div>
           </div>
-        </form>
-        <button class="btn btn-primary lg-btn" (click)="reset()" >
-          &nbsp;Reset
-        </button>
-
-        <div class="col-12">
-          <div *ngIf="isSubmit">
-            <Label>diabetic Status:</Label>
-            <div >{{isDiabeticPatient? "Patient Id " + diabeticData.Patient_ID + " have diabetics" : "does not have diabetics"}}</div>
-          </div>
-
         </div>
-
-
       </div>
     </div>
   </div>
-</div>
+</section>
