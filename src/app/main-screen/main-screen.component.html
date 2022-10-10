@@ -87,7 +87,7 @@
             <div class="container border mb-4">
               <form [formGroup]="bmiForm"  autocomplete="off" id="bmi-form" name="calculateForm" #c="ngForm" (ngSubmit)="calculate()" class="row g-3">
                 <div class="row">
-                  <label class="d-flex">BMT Indicator</label>
+                  <label class="d-flex">BMI Indicator</label>
                 </div>
 
                 <div class="row">
@@ -108,7 +108,7 @@
                 <div class="row">
                   <div class="col-md-2">
                     <div class="form-group">
-                      <button class="btn btn-primary btn-group-sm d-flex w-100 justify-content-center" [disabled]="!c.valid" type="submit">&nbsp;Submit</button>
+                      <button class="btn btn-primary btn-group-sm d-flex w-100 justify-content-center" [disabled]="!c.valid" type="submit">&nbsp;Calculate BMI</button>
                     </div>
                   </div>
                   <div class="col-md-2">
